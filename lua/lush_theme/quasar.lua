@@ -244,7 +244,7 @@ local theme = lush(function(injected_functions)
 		sym("@lsp.type.formatSpecifier.rust")({ fg = grass7 }), -- SpecialChar
 		Operator({ fg = step7 }), --   "sizeof", "+", "*", etc.
 		sym("@lsp.typemod.keyword.attribute.rust")({ fg = plum9 }), -- SpecialChar
-		sym("@lsp.typemod.selfKeyword.mutable.rust")({ fg = plum12, gui = "bold" }), -- SpecialChar
+		sym("@lsp.typemod.selfKeyword.mutable.rust")({ fg = plum12, bold = true }), -- SpecialChar
 		sym("@keyword.modifier.rust")({ fg = step11 }), -- SpecialChar
 		sym("@punctuation")({ fg = step8 }), -- Delimiter
 
