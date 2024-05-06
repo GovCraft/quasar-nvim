@@ -18,7 +18,7 @@ local black = hsl(0, 0, 0)
 
 local mauve1 = hsl(270, 6, 7)
 local mauve2 = hsl(270, 4, 10)
-local mauve12 = hsl(258, 7, 72)
+local mauve12 = hsl(240, 7, 94)
 
 local crimson1 = hsl(338, 19, 8)
 local crimson2 = hsl(337, 25, 10)
@@ -44,9 +44,11 @@ local blue11_rotate = brown9.rotate(270)
 local gold10 = hsl(36, 21, 55)
 local bronze9 = hsl(18, 24, 54)
 local bronze10 = hsl(18, 23, 59)
+local bronze12 = hsl(21, 100, 89)
 
 local red9 = hsl(347, 100, 50)
 local yellow9 = hsl(53, 100, 58)
+local yellow11 = hsl(53, 90, 62)
 local lime9 = hsl(74, 98, 46)
 local lime11 = hsl(80, 70, 66)
 local violet11 = hsl(253, 100, 83)
@@ -58,6 +60,7 @@ local plum10 = hsl(294, 100, 46)
 local plum11 = hsl(292, 79, 77)
 local plum12 = hsl(300, 100, 90)
 local amber7 = hsl(37, 64, 27)
+local amber8 = hsl(39, 100, 30)
 local amber9 = hsl(42, 100, 62)
 local amber10 = hsl(50, 100, 52)
 local amber11 = hsl(46, 100, 54)
@@ -85,6 +88,7 @@ local blue7 = hsl(208, 100, 34)
 local blue9 = hsl(206, 100, 50)
 local blue11 = hsl(210, 100, 72)
 local sky11 = hsl(200, 80, 70)
+local sky7 = hsl(200, 100, 30)
 local sky8 = hsl(200, 75, 39)
 local sky9 = hsl(193, 98, 74)
 local cyan7 = hsl(192, 100, 25)
@@ -148,12 +152,13 @@ local theme = lush(function(injected_functions)
 		CurSearch({ fg = Conceal.bg, bg = Conceal.fg }), --Used for highlighting a search pattern under the cursor
 
 		Typedef({ fg = step11 }), --   A typedef
+		sym("@lsp.type.builtinType.rust")({ fg = red11 }), -- SpecialChar
 		sym("@lsp.type.variable.rust")({ fg = step12 }), -- SpecialChar
 		sym("@lsp.type.variable")({ fg = step12 }), -- SpecialChar
 		sym("@variable")({ fg = step11 }), -- Identifier
 		sym("@lsp.typemod.variable.declaration.rust")({ fg = plum7 }), -- SpecialChar
-		sym("@lsp.typemod.decorator.attribute.rust")({ fg = amber10 }), -- SpecialChar
-		sym("@lsp.typemod.decorator.library.rust")({ fg = amber12 }), -- SpecialChar
+		sym("@lsp.typemod.decorator.attribute.rust")({ fg = amber8, bold = true }), -- SpecialChar
+		sym("@lsp.typemod.decorator.library.rust")({ fg = amber8, bold = true }), -- SpecialChar
 		Number({ fg = step11 }), --   A number constant: 234, 0xff
 		Tag({ fg = step11 }), --   You can use CTRL-] on this
 		Float({ fg = step11 }), --   A floating point constant: 2.3e10
@@ -173,7 +178,6 @@ local theme = lush(function(injected_functions)
 		DiffAdd({ fg = grass9, bg = SignColumn.bg }), -- Diff mode: Added line |diff.txt|
 		DiffChange({ fg = yellow9, bg = SignColumn.bg }), -- Diff mode: Changed line |diff.txt|
 		DiffDelete({ fg = red9, bg = SignColumn.bg }), -- Diff mode: Deleted line |diff.txt|
-		MatchParen({ fg = step12 }),
 
 		sym("@parameter")({ fg = step9 }), -- Identifier
 		String({ fg = grass9 }), --   A string constant: "this is a string"
@@ -187,11 +191,12 @@ local theme = lush(function(injected_functions)
 		sym("@lsp.mod.library.rust")({ fg = step11 }), -- SpecialChar
 		sym("@property")({ fg = step11 }), -- Identifier
 
-		sym("@lsp.typemod.parameter.reference.rust")({ fg = step12 }), -- SpecialChar
-		sym("@lsp.typemod.parameter.callable.rust")({ fg = plum9 }), -- SpecialChar
+		sym("@lsp.typemod.parameter.reference.rust")({ fg = step12, bold = true }), -- SpecialChar
+		sym("@lsp.typemod.parameter.callable.rust")({ fg = mauve12, bold = true }), -- SpecialChar
 		sym("@lsp.type.decorator.rust")({ fg = plum9 }), -- SpecialChar
-		sym("@lsp.typemod.struct.declaration.rust")({ fg = plum9 }), -- SpecialChar
-		sym("@lsp.typemod.struct.public.rust")({ fg = plum9 }), -- SpecialChar
+		sym("@lsp.typemod.struct.public.rust")({ fg = crimson9, bold = true }), -- SpecialChar
+		sym("@lsp.typemod.struct.library.rust")({ fg = crimson9 }), -- SpecialCharbrown
+		sym("@lsp.typemod.struct.declaration.rust")({ fg = crimson9, bold = true }), -- SpecialChar
 
 		sym("@lsp.typemod.enum.public.rust")({ fg = cyan7 }), -- SpecialChar
 		sym("@lsp.typemod.enumMember.public.rust")({ fg = cyan9 }), -- SpecialChar
@@ -199,29 +204,30 @@ local theme = lush(function(injected_functions)
 		sym("@lsp.typemod.enum.defaultLibrary.rust")({ fg = cyan9 }), -- SpecialCharbrown
 
 		Keyword({ fg = step9 }),
-		sym("@keyword.coroutine.rust")({ fg = blue7 }), -- SpecialChar
-		sym("@keyword.function.rust")({ fg = blue7 }), -- SpecialChar
-		sym("@lsp.typemod.method.trait.rust")({ fg = blue9 }), -- SpecialChar
-		sym("@lsp.typemod.method.reference.rust")({ fg = blue7 }), -- SpecialChar
-		sym("@lsp.typemod.variable.reference.rust")({ fg = teal9 }), -- SpecialChar
-		sym("@lsp.typemod.typeAlias.public.rust")({ fg = teal9 }), -- SpecialChar
-		sym("@lsp.type.typeAlias.rust")({ fg = teal9 }), -- SpecialChar
+		sym("@lsp.typemod.function.static.rust")({ fg = sky9 }), -- SpecialCharbrown
+		sym("@lsp.typemod.function.trait.rust")({ fg = sky9 }), -- SpecialChar
+		sym("@lsp.typemod.method.trait.rust")({ fg = sky9 }), -- SpecialChar
+		sym("@lsp.typemod.method.reference.rust")({ fg = sky9 }), -- SpecialChar
+		sym("@lsp.typemod.method.declaration.rust")({ fg = sky9 }), -- SpecialChar
+		sym("@keyword.function.rust")({ fg = sky9 }), -- SpecialChar
+		sym("@keyword.coroutine.rust")({ fg = blue11 }), -- SpecialChar
+		sym("@lsp.typemod.typeAlias.public.rust")({ fg = tomato12 }), -- SpecialChar
+		sym("@lsp.type.typeAlias.rust")({ fg = yellow11 }), -- SpecialChar
 
 		sym("@lsp.typemod.generic.macro.rust")({ fg = orange9 }), -- SpecialChar
 		sym("@lsp.typemod.macro.library.rust")({ fg = orange9 }), -- SpecialChar
 
 		sym("@lsp.type.lifetime.rust")({ fg = cyan9, gui = "italic" }), -- SpecialChar
-		sym("@lsp.type.typeParameter.rust")({ fg = cyan9 }), -- SpecialChar
+		sym("@lsp.type.typeParameter.rust")({ fg = sky9 }), -- SpecialChar
 		sym("@lsp.typemod.interface.defaultLibrary.rust")({ fg = step11 }), -- SpecialCharbrown
-		sym("@lsp.typemod.interface.public.rust")({ fg = bronze9 }), -- SpecialCharbrown
-		sym("@lsp.typemod.interface.library.rust")({ fg = bronze9 }), -- SpecialCharbrown
-		sym("@lsp.typemod.function.library.rust")({ fg = bronze9 }), -- SpecialCharbrown
-		sym("@lsp.typemod.function.static.rust")({ fg = bronze9 }), -- SpecialCharbrown
-		sym("@lsp.typemod.struct.library.rust")({ fg = bronze9 }), -- SpecialCharbrown
+		sym("@lsp.typemod.interface.public.rust")({ fg = cyan9 }), -- SpecialCharbrown
+		sym("@lsp.typemod.variable.reference.rust")({ fg = tomato10 }), -- SpecialChar
+		sym("@lsp.typemod.interface.library.rust")({ fg = tomato10 }), -- SpecialCharbrown
+		sym("@lsp.typemod.function.library.rust")({ fg = tomato10 }), -- SpecialCharbrown
 
 		sym("@lsp.type.namespace.rust")({ fg = step11 }), -- SpecialChar
 		sym("@lsp.typemod.namespace.library.rust")({ fg = step11 }), -- SpecialChar
-		sym("@lsp.typemod.generic.attribute.rust")({ fg = amber12 }), -- SpecialChar
+		sym("@lsp.typemod.generic.attribute.rust")({ fg = amber8 }), -- SpecialChar
 		sym("@lsp.typemod.parameter.declaration.rust")({ fg = step12 }), -- SpecialChar
 		sym("@lsp.typemod.parameter.mutable.rust")({ fg = step12 }), -- SpecialChar
 		--		sym("@lsp.typemod.namespace.library.rust")({ fg = step10 }), -- SpecialChar
@@ -230,23 +236,25 @@ local theme = lush(function(injected_functions)
 		Define({ fg = step11 }), --   Preprocessor #define
 
 		Constant({ fg = step11 }),
-		sym("@lsp.type.property.rust")({ fg = step12 }), -- SpecialChar
-		sym("@lsp.typemod.property.public.rust")({ fg = step12 }), -- SpecialChar
+		sym("@lsp.type.property.rust")({ fg = sky7 }), -- SpecialChar
+		sym("@lsp.typemod.property.public.rust")({ fg = sky7 }), -- SpecialChar
 		Repeat({ fg = step11 }), --   for, do, while, etc.
 		Label({ fg = step11 }), --   case, default, etc.
 		sym("@comment")({ Comment }), -- Comment
 
-		sym("@keyword.type.rust")({ fg = plum7 }), -- SpecialChar
-		sym("@lsp.type.keyword.rust")({ fg = plum7 }), -- SpecialChar
-		sym("@lsp.typemod.keyword.public.rust")({ fg = plum7 }), -- SpecialChar
+		sym("@keyword.type.rust")({ fg = sky8 }), -- SpecialChar
+		sym("@lsp.type.keyword.rust")({ fg = sky8 }), -- SpecialChar
+		sym("@lsp.typemod.keyword.public.rust")({ fg = sky8 }), -- SpecialChar
 		sym("@keyword.rust")({ fg = step11 }), -- SpecialChartom
 		sym("@keyword.import.rust")({ fg = step5 }), -- SpecialChar
 		sym("@lsp.type.formatSpecifier.rust")({ fg = grass7 }), -- SpecialChar
 		Operator({ fg = step7 }), --   "sizeof", "+", "*", etc.
-		sym("@lsp.typemod.keyword.attribute.rust")({ fg = plum9 }), -- SpecialChar
-		sym("@lsp.typemod.selfKeyword.mutable.rust")({ fg = plum12, bold = true }), -- SpecialChar
+		sym("@lsp.typemod.keyword.attribute.rust")({ fg = mint9, bold = true }), -- SpecialChar
+		sym("@lsp.typemod.selfKeyword.mutable.rust")({ fg = mint9, bold = true }), -- SpecialChar
+		sym("@lsp.type.selfTypeKeyword.rust")({ fg = mint9, bold = true }), -- SpecialChar
 		sym("@keyword.modifier.rust")({ fg = step11 }), -- SpecialChar
-		sym("@punctuation")({ fg = step8 }), -- Delimiter
+		sym("@punctuation")({ fg = step11 }), -- Delimiter
+		MatchParen({ fg = tomato9 }),
 
 		sym("@constant.builtin")({ fg = step11 }), -- Special
 		-- Include({ fg = lime9 }), --   Preprocessor #include
